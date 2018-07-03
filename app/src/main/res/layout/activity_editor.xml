@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context=".EditorActivity">
+
+    <!-- Overview category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="@string/product_detail"
+            style="@style/CategoryStyle" />
+
+        <!-- Input fields -->
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:paddingLeft="4dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_item_name"
+                android:hint="@string/hint_item_name"
+                style="@style/EditorFieldStyle" />
+
+            <EditText
+                android:id="@+id/edit_price"
+                android:hint="@string/hint_price"
+                style="@style/EditorFieldStyle"
+                android:inputType="numberDecimal"/>
+            <EditText
+                android:id="@+id/edit_amount"
+                android:hint="@string/hint_amount"
+                style="@style/EditorFieldStyle"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Size category -->
+    <LinearLayout
+        android:id="@+id/container_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="@string/category_size"
+            style="@style/CategoryStyle" />
+
+        <!-- Input field -->
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <!-- Gender drop-down spinner -->
+            <Spinner
+                android:id="@+id/spinner_size"
+                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:paddingRight="16dp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Client Details -->
+    <LinearLayout
+        android:id="@+id/container_measurement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/name_supplier"
+            style="@style/CategoryStyle" />
+        <LinearLayout
+            android:id="@+id/container_measurement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/edit_supplier_name"
+                android:hint="@string/hint_name_supplier"
+                style="@style/EditorFieldStyle"
+                android:layout_marginLeft="20dp"/>
+            <EditText
+                android:id="@+id/edit_supplier_phone"
+                android:layout_below="@+id/edit_supplier_name"
+                android:hint="@string/hint_supplier_phone"
+                style="@style/EditorFieldStyle"
+                android:layout_marginLeft="20dp"
+                android:inputType="phone" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
