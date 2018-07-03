@@ -1,6 +1,5 @@
 package com.example.android.p9inventorystage2;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -29,7 +28,6 @@ import com.example.android.p9inventorystage2.data.InventoryContract.InventoryEnt
 
 public class EditorActivity extends AppCompatActivity implements
          LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String LOD_TAG = EditorActivity.class.getSimpleName();
 
     /** Identifier for the inventory data loader */
     private static final int EXISTING_INVENTORY_LOADER = 0;
@@ -170,7 +168,7 @@ public class EditorActivity extends AppCompatActivity implements
         String priceString = mItempriceEditText.getText().toString().trim();
         //int price = Integer.parseInt(priceString);
         String amountString = mAmountEditText.getText().toString().trim();
-      // int amount = Integer.parseInt(amountString);
+   // int amount = Integer.parseInt(amountString);
         String suppliernameString = mSuppliernameEditText.getText().toString().trim();
         String supplierphoneString = mSupplierphoneEditText.getText().toString().trim();
 
@@ -178,11 +176,13 @@ public class EditorActivity extends AppCompatActivity implements
         // Check if this is supposed to be a new item
         // and check if all the fields in the editor are blank
         if (mCurrentItemUri == null &&
-                TextUtils.isEmpty(itemnameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(amountString)&&
-                TextUtils.isEmpty(suppliernameString)&&
-                TextUtils.isEmpty(supplierphoneString) && mSize == InventoryEntry.SIZE_SMALL) {
-            // Since no fields were modified, we can return early without creating a new pet.
+                TextUtils.isEmpty(itemnameString)
+                && TextUtils.isEmpty(priceString)
+                && TextUtils.isEmpty(amountString)
+                && TextUtils.isEmpty(suppliernameString)
+                && TextUtils.isEmpty(supplierphoneString)
+                && mSize == InventoryEntry.SIZE_SMALL) {
+            // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
         }
@@ -226,7 +226,7 @@ public class EditorActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentItemUri
+            // Otherwise this is an EXISTING product, so update the product with content URI: mCurrentItemUri
             // and pass in the new ContentValues. Pass in null for the selection and selection args
             // because mCurrentItemUri will already identify the correct row in the database that
             // we want to modify.
@@ -361,7 +361,7 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
             // Bail early if the cursor is null or there is less than 1 row in the cursor
             if (cursor == null || cursor.getCount() < 1) {
                 return;
@@ -377,7 +377,6 @@ public class EditorActivity extends AppCompatActivity implements
                 int SizeColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SIZE);
                 int SuppliernameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SUPPLIER_NAME);
                 int SupplierphoneColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SUPPLIER_PHONE);
-                Log.e(LOD_TAG, "There is a problem making the cursor request.");
 
                 // Extract out the value from the Cursor for the given column index
                 String Itemname = cursor.getString(ItemnameColumnIndex);
@@ -386,7 +385,6 @@ public class EditorActivity extends AppCompatActivity implements
                 String Size = cursor.getString(SizeColumnIndex);
                 String Suppliername = cursor.getString(SuppliernameColumnIndex);
                 String Supplierphone = cursor.getString(SupplierphoneColumnIndex);
-                Log.e(LOD_TAG, "There is a problem making the cursor request.");
 
                 // Update the views on the screen with the values from the database
                 mItemnameEditText.setText(Itemname);
