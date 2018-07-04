@@ -13,7 +13,6 @@ import android.content.ContentValues;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.NavUtils;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -26,23 +25,35 @@ import android.widget.Toast;
 
 import com.example.android.p9inventorystage2.data.InventoryContract.InventoryEntry;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class EditorActivity extends AppCompatActivity implements
          LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the inventory data loader */
+    /**
+     * Identifier for the inventory data loader
+     */
     private static final int EXISTING_INVENTORY_LOADER = 0;
 
-    /** Content URI for the existing product (null if it's a new product) */
+    /**
+     * Content URI for the existing product (null if it's a new product)
+     */
     private Uri mCurrentItemUri;
 
-    private EditText mItemnameEditText;
+    //private EditText mItemnameEditText;
+    @BindView(R.id.edit_item_name)
+    EditText mItemname;
+    //private EditText mItempriceEditText;
+    @BindView(R.id.edit_price)
+    EditText mItemprice;
+    // private EditText mAmountEditText;
+    @BindView(R.id.edit_amount)
+    EditText mAmount;
 
-    private EditText mItempriceEditText;
-
-    private EditText mAmountEditText;
-
-
-    /** EditText field to enter the product size */
+    /**
+     * EditText field to enter the product size
+     */
     private Spinner mSizeSpinner;
     /**
      * Size of the items. The possible valid values are in the InventoryContract.java file:
@@ -51,12 +62,15 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private String mSize = InventoryEntry.SIZE_SMALL;
 
-
-
-    private EditText mSuppliernameEditText;
-    private EditText mSupplierphoneEditText;
-
-    /** Boolean flag that keeps track of whether the pet has been edited (true) or not (false) */
+    // private EditText mSuppliernameEditText;
+    @BindView(R.id.edit_supplier_name)
+    EditText mSuppliername;
+    // private EditText mSupplierphoneEditText;
+    @BindView(R.id.edit_supplier_phone)
+    EditText mSupplierphone;
+    /**
+     * Boolean flag that keeps track of whether the pet has been edited (true) or not (false)
+     */
     private boolean mItemHasChanged = false;
 
     /**
@@ -75,6 +89,9 @@ public class EditorActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        ButterKnife.bind(this);
+
         // Examine the intent that was used to launch this activity,
         // in order to figure out if we're creating a new product or editing an existing one.
         Intent intent = getIntent();
@@ -98,27 +115,28 @@ public class EditorActivity extends AppCompatActivity implements
             getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
         }
 
-        mItemnameEditText = (EditText)findViewById(R.id.edit_item_name);
-        mItempriceEditText =(EditText) findViewById(R.id.edit_price);
-        mAmountEditText = (EditText)findViewById(R.id.edit_amount);
+        //mItemnameEditText = (EditText)findViewById(R.id.edit_item_name);
+        //mItempriceEditText =(EditText) findViewById(R.id.edit_price);
+        //mAmountEditText = (EditText)findViewById(R.id.edit_amount);
 
-        mSizeSpinner =(Spinner) findViewById(R.id.spinner_size);
+        mSizeSpinner = (Spinner) findViewById(R.id.spinner_size);
 
-        mSuppliernameEditText =(EditText) findViewById(R.id.edit_supplier_name);
-        mSupplierphoneEditText =(EditText) findViewById(R.id.edit_supplier_phone);
+        //mSuppliernameEditText =(EditText) findViewById(R.id.edit_supplier_name);
+        //mSupplierphoneEditText =(EditText) findViewById(R.id.edit_supplier_phone);
 
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
         // or not, if the user tries to leave the editor without saving.
-        mItemnameEditText.setOnTouchListener(mTouchListener);
-        mItempriceEditText.setOnTouchListener(mTouchListener);
-        mAmountEditText.setOnTouchListener(mTouchListener);
+        mItemname.setOnTouchListener(mTouchListener);
+        mItemprice.setOnTouchListener(mTouchListener);
+        mAmount.setOnTouchListener(mTouchListener);
         mSizeSpinner.setOnTouchListener(mTouchListener);
-        mSuppliernameEditText.setOnTouchListener(mTouchListener);
-        mSupplierphoneEditText.setOnTouchListener(mTouchListener);
+        mSuppliername.setOnTouchListener(mTouchListener);
+        mSupplierphone.setOnTouchListener(mTouchListener);
         setupSpinner();
     }
+
     /**
      * Setup the dropdown spinner that allows the user to select the size  of the clothes products.
      */
@@ -164,13 +182,13 @@ public class EditorActivity extends AppCompatActivity implements
     // Gets user input from editor and saves item info into database
     private void saveItem() {
 
-        String itemnameString = mItemnameEditText.getText().toString().trim();
-        String priceString = mItempriceEditText.getText().toString().trim();
+        String itemnameString = mItemname.getText().toString().trim();
+        String priceString = mItemprice.getText().toString().trim();
         //int price = Integer.parseInt(priceString);
-        String amountString = mAmountEditText.getText().toString().trim();
-   // int amount = Integer.parseInt(amountString);
-        String suppliernameString = mSuppliernameEditText.getText().toString().trim();
-        String supplierphoneString = mSupplierphoneEditText.getText().toString().trim();
+        String amountString = mAmount.getText().toString().trim();
+        // int amount = Integer.parseInt(amountString);
+        String suppliernameString = mSuppliername.getText().toString().trim();
+        String supplierphoneString = mSupplierphone.getText().toString().trim();
 
 
         // Check if this is supposed to be a new item
@@ -189,8 +207,8 @@ public class EditorActivity extends AppCompatActivity implements
 
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_ITEM_NAME, itemnameString);
-       // values.put(InventoryEntry.COLUMN_ITEM_PRICE, price);
-      //  values.put(InventoryEntry.COLUMN_AMOUNT, amount);
+        // values.put(InventoryEntry.COLUMN_ITEM_PRICE, price);
+        //  values.put(InventoryEntry.COLUMN_AMOUNT, amount);
         values.put(InventoryEntry.COLUMN_SIZE, mSize);
         values.put(InventoryEntry.COLUMN_SUPPLIER_NAME, suppliernameString);
         values.put(InventoryEntry.COLUMN_SUPPLIER_PHONE, supplierphoneString);
@@ -252,6 +270,7 @@ public class EditorActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.menu_editor, menu);
         return true;
     }
+
     /**
      * This method is called after invalidateOptionsMenu(), so that the
      * menu can be updated (some menu items can be hidden or made visible).
@@ -349,7 +368,7 @@ public class EditorActivity extends AppCompatActivity implements
                 InventoryEntry.COLUMN_AMOUNT,
                 InventoryEntry.COLUMN_SIZE,
                 InventoryEntry.COLUMN_SUPPLIER_NAME,
-                InventoryEntry.COLUMN_SUPPLIER_PHONE };
+                InventoryEntry.COLUMN_SUPPLIER_PHONE};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -358,80 +377,74 @@ public class EditorActivity extends AppCompatActivity implements
                 null,                  // No selection clause
                 null,               // No selection arguments
                 null);                 // Default sort order
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
         }
 
-        @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-            // Bail early if the cursor is null or there is less than 1 row in the cursor
-            if (cursor == null || cursor.getCount() < 1) {
-                return;
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (cursor.moveToFirst()) {
+            // Find the columns of pet attributes that we're interested in
+            int ItemnameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
+            int ItempriceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
+            int AmountColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_AMOUNT);
+            int SizeColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SIZE);
+            int SuppliernameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SUPPLIER_NAME);
+            int SupplierphoneColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SUPPLIER_PHONE);
+
+            // Extract out the value from the Cursor for the given column index
+            String Itemname = cursor.getString(ItemnameColumnIndex);
+            int Itemprice = cursor.getInt(ItempriceColumnIndex);
+            int Amount = cursor.getInt(AmountColumnIndex);
+            String Size = cursor.getString(SizeColumnIndex);
+            String Suppliername = cursor.getString(SuppliernameColumnIndex);
+            String Supplierphone = cursor.getString(SupplierphoneColumnIndex);
+
+            // Update the views on the screen with the values from the database
+            mItemname.setText(Itemname);
+            mItemprice.setText(Integer.toString(Itemprice));
+            mAmount.setText(Integer.toString(Amount));
+            mItemname.setText(Suppliername);
+            mItemname.setText(Supplierphone);
+
+
+            // Gender is a dropdown spinner, so map the constant value from the database
+            // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
+            // Then call setSelection() so that option is displayed on screen as the current selection.
+            switch (Size) {
+
+                case InventoryEntry.SIZE_MEDIUM:
+                    mSizeSpinner.setSelection(R.string.size_medium);
+                    break;
+
+                case InventoryEntry.SIZE_LARGE:
+                    mSizeSpinner.setSelection(R.string.size_large);
+                    break;
+                case InventoryEntry.SIZE_XLARGE:
+                    mSizeSpinner.setSelection(R.string.size_xlarge);
+                    break;
+                default:
+                    mSizeSpinner.setSelection(R.string.size_small);
+                    break;
             }
-
-            // Proceed with moving to the first row of the cursor and reading data from it
-            // (This should be the only row in the cursor)
-            if (cursor.moveToFirst()) {
-                // Find the columns of pet attributes that we're interested in
-                int ItemnameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
-                int ItempriceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
-                int AmountColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_AMOUNT);
-                int SizeColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SIZE);
-                int SuppliernameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SUPPLIER_NAME);
-                int SupplierphoneColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SUPPLIER_PHONE);
-
-                // Extract out the value from the Cursor for the given column index
-                String Itemname = cursor.getString(ItemnameColumnIndex);
-                int Itemprice = cursor.getInt(ItempriceColumnIndex);
-                int Amount = cursor.getInt(AmountColumnIndex);
-                String Size = cursor.getString(SizeColumnIndex);
-                String Suppliername = cursor.getString(SuppliernameColumnIndex);
-                String Supplierphone = cursor.getString(SupplierphoneColumnIndex);
-
-                // Update the views on the screen with the values from the database
-                mItemnameEditText.setText(Itemname);
-                mItempriceEditText.setText(Integer.toString(Itemprice));
-                mAmountEditText.setText(Integer.toString(Amount));
-                mItemnameEditText.setText(Suppliername);
-                mItemnameEditText.setText(Supplierphone);
-
-
-                // Gender is a dropdown spinner, so map the constant value from the database
-                // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
-                // Then call setSelection() so that option is displayed on screen as the current selection.
-                switch (Size) {
-
-                    case InventoryEntry.SIZE_MEDIUM:
-                        mSizeSpinner.setSelection(R.string.size_medium);
-                        break;
-
-                    case InventoryEntry.SIZE_LARGE:
-                        mSizeSpinner.setSelection(R.string.size_large);
-                        break;
-                    case InventoryEntry.SIZE_XLARGE:
-                        mSizeSpinner.setSelection(R.string.size_xlarge);
-                        break;
-                    default:
-                        mSizeSpinner.setSelection(R.string.size_small);
-                        break;
-                }
-            }
         }
+    }
 
-        @Override
-        public void onLoaderReset(Loader<Cursor> loader) {
-            // If the loader is invalidated, clear out all the data from the input fields.
-            mItemnameEditText.setText("");
-            mItempriceEditText.setText("");
-            mAmountEditText.setText("");
-            mSizeSpinner.setSelection(R.string.size_small); // Select "small" size
-            mItemnameEditText.setText("");
-            mItemnameEditText.setText("");
-        }
-
-
-
-
-
-
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // If the loader is invalidated, clear out all the data from the input fields.
+        mItemname.setText("");
+        mItemprice.setText("");
+        mAmount.setText("");
+        mSizeSpinner.setSelection(R.string.size_small); // Select "small" size
+        mItemname.setText("");
+        mItemname.setText("");
+    }
 
 
     /**
@@ -518,9 +531,5 @@ public class EditorActivity extends AppCompatActivity implements
         // Close the activity
         finish();
     }
+}
 
-
-
-
-
-    }
