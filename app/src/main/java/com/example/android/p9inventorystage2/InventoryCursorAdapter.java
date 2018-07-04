@@ -68,7 +68,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         String inventorySupplierName = cursor.getString(suppliernameColumnIndex);
 
         // If the inventory breed is empty string or null, then use some default text
-        // that says "Unknown breed", so the TextView isn't blank.
+        // that says "Unknown supplier", so the TextView isn't blank.
         if (TextUtils.isEmpty(inventorySupplierName)) {
             inventorySupplierName = context.getString(R.string.unknown_supplier);
         }

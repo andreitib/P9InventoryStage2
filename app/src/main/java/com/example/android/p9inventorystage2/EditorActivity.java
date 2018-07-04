@@ -197,8 +197,6 @@ public class EditorActivity extends AppCompatActivity implements
 
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_ITEM_NAME, itemnameString);
-        // values.put(InventoryEntry.COLUMN_ITEM_PRICE, price);
-        //  values.put(InventoryEntry.COLUMN_AMOUNT, amount);
         values.put(InventoryEntry.COLUMN_SIZE, mSize);
         values.put(InventoryEntry.COLUMN_SUPPLIER_NAME, suppliernameString);
         values.put(InventoryEntry.COLUMN_SUPPLIER_PHONE, supplierphoneString);
@@ -409,17 +407,18 @@ public class EditorActivity extends AppCompatActivity implements
             switch (Size) {
 
                 case InventoryEntry.SIZE_MEDIUM:
-                    mSizeSpinner.setSelection(R.string.size_medium);
+                    mSizeSpinner.setSelection(1);
+                    //mSizeSpinner.setSelection(R.string.size_medium);
                     break;
 
                 case InventoryEntry.SIZE_LARGE:
-                    mSizeSpinner.setSelection(R.string.size_large);
+                    mSizeSpinner.setSelection(2);
                     break;
                 case InventoryEntry.SIZE_XLARGE:
-                    mSizeSpinner.setSelection(R.string.size_xlarge);
+                    mSizeSpinner.setSelection(3);
                     break;
                 default:
-                    mSizeSpinner.setSelection(R.string.size_small);
+                    mSizeSpinner.setSelection(0);
                     break;
             }
         }
@@ -431,7 +430,7 @@ public class EditorActivity extends AppCompatActivity implements
         mItemname.setText("");
         mItemprice.setText("");
         mAmount.setText("");
-        mSizeSpinner.setSelection(R.string.size_small); // Select "small" size
+        mSizeSpinner.setSelection(0); // Select "small" size
         mItemname.setText("");
         mItemname.setText("");
     }
