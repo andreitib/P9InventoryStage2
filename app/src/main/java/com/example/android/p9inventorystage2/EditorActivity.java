@@ -41,13 +41,12 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private Uri mCurrentItemUri;
 
-    //private EditText mItemnameEditText;
     @BindView(R.id.edit_item_name)
     EditText mItemname;
-    //private EditText mItempriceEditText;
+
     @BindView(R.id.edit_price)
     EditText mItemprice;
-    // private EditText mAmountEditText;
+
     @BindView(R.id.edit_amount)
     EditText mAmount;
 
@@ -62,10 +61,9 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private String mSize = InventoryEntry.SIZE_SMALL;
 
-    // private EditText mSuppliernameEditText;
     @BindView(R.id.edit_supplier_name)
     EditText mSuppliername;
-    // private EditText mSupplierphoneEditText;
+
     @BindView(R.id.edit_supplier_phone)
     EditText mSupplierphone;
     /**
@@ -115,15 +113,7 @@ public class EditorActivity extends AppCompatActivity implements
             getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
         }
 
-        //mItemnameEditText = (EditText)findViewById(R.id.edit_item_name);
-        //mItempriceEditText =(EditText) findViewById(R.id.edit_price);
-        //mAmountEditText = (EditText)findViewById(R.id.edit_amount);
-
         mSizeSpinner = (Spinner) findViewById(R.id.spinner_size);
-
-        //mSuppliernameEditText =(EditText) findViewById(R.id.edit_supplier_name);
-        //mSupplierphoneEditText =(EditText) findViewById(R.id.edit_supplier_phone);
-
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
