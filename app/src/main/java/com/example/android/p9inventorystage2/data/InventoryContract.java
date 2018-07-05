@@ -40,12 +40,9 @@ public final class InventoryContract {
         public final static String COLUMN_ITEM_NAME = "name";
         public final static String COLUMN_ITEM_PRICE = "price";
         public final static String COLUMN_AMOUNT = "items";
+        public final static String COLUMN_SIZE = "size";
         public final static String COLUMN_SUPPLIER_NAME = "supplier";
         public final static String COLUMN_SUPPLIER_PHONE = "phonesupplier";
-
-
-        public final static String COLUMN_SIZE = "size";
-
 
         /**
          * Possible values for the size of the clothes.
