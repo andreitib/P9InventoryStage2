@@ -97,4 +97,5 @@
     <string name="unknown_supplier">Unknown supplier</string>
 
     <string name="no_stock_supply">No stock supply</string>
+    <string name="sell">Sell</string>
 </resources>

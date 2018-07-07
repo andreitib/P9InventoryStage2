@@ -1,11 +1,15 @@
 package com.example.android.p9inventorystage2;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
@@ -54,18 +58,23 @@ public class InventoryCursorAdapter extends CursorAdapter {
      *                correct row.
      */
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
+        TextView amountTextView = (TextView) view.findViewById(R.id.quantity_value);
+        Button sellButton = view.findViewById(R.id.sell_button);
 
         // Find the columns of Inventory attributes that we're interested in
+        final int idColumnIndex = cursor.getInt(cursor.getColumnIndex(InventoryEntry._ID));
         int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
         int suppliernameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SUPPLIER_NAME);
+        int amountColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_AMOUNT);
 
         // Read the inventory attributes from the Cursor for the current inventory
         String inventoryName = cursor.getString(nameColumnIndex);
         String inventorySupplierName = cursor.getString(suppliernameColumnIndex);
+        final int amountValue = cursor.getInt(amountColumnIndex);
 
         // If the inventory breed is empty string or null, then use some default text
         // that says "Unknown supplier", so the TextView isn't blank.
@@ -76,5 +85,20 @@ public class InventoryCursorAdapter extends CursorAdapter {
         // Update the TextViews with the attributes for the current inventory
         nameTextView.setText(inventoryName);
         summaryTextView.setText(inventorySupplierName);
+        amountTextView.setText(String.valueOf(amountValue));
+
+        //Decrease the quantity by   1 on each click
+        sellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri amountUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, idColumnIndex);
+                ContentValues values = new ContentValues();
+                values.put(InventoryEntry.COLUMN_AMOUNT, amountValue - 1);
+                context.getContentResolver().update(amountUri, values, null, null);
+            }
+        });
+
+
+
     }
 }

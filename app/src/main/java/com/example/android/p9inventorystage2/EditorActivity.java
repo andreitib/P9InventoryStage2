@@ -214,9 +214,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         String itemnameString = mItemname.getText().toString().trim();
         String priceString = mItemprice.getText().toString().trim();
-        //int price = Integer.parseInt(priceString);
         String amountString = mAmount.getText().toString().trim();
-        // int amount = Integer.parseInt(amountString);
         String suppliernameString = mSuppliername.getText().toString().trim();
         String supplierphoneString = mSupplierphone.getText().toString().trim();
 
@@ -225,11 +223,11 @@ public class EditorActivity extends AppCompatActivity implements
         // and check if all the fields in the editor are blank
         if (mCurrentItemUri == null &&
                 TextUtils.isEmpty(itemnameString)
-                && TextUtils.isEmpty(priceString)
-                && TextUtils.isEmpty(amountString)
-                && TextUtils.isEmpty(suppliernameString)
-                && TextUtils.isEmpty(supplierphoneString)
-                && mSize == InventoryEntry.SIZE_SMALL) {
+                || TextUtils.isEmpty(priceString)
+                || TextUtils.isEmpty(amountString)
+                || TextUtils.isEmpty(suppliernameString)
+                || TextUtils.isEmpty(supplierphoneString)
+                || mSize == InventoryEntry.SIZE_SMALL) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;

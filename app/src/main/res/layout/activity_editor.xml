@@ -52,9 +52,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
              <!-- Label -->
-            <TextView
-                 android:text="@string/product_amount"
-                 style="@style/CategoryStyle" />
+                 <TextView
+                    android:text="@string/product_amount"
+                    style="@style/CategoryStyle" />
                 <ImageButton
                     android:id="@+id/decrease_quantity"
                     android:layout_width="0dp"
@@ -123,19 +123,24 @@
         android:id="@+id/container_measurement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingVertical="4dp">
         <TextView
             android:text="@string/phone_supplier"
-            style="@style/CategoryStyle" />
+            style="@style/CategoryStyle"
+            />
 
         <EditText
             android:id="@+id/edit_supplier_phone"
-            android:layout_below="@+id/edit_supplier_name"
             android:hint="@string/hint_supplier_phone"
             style="@style/EditorFieldStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:inputType="phone" />
-
-
+        <ImageButton
+            android:id="@+id/btn_make_phone_call"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_phone" />
     </LinearLayout>
 
 </LinearLayout>
