@@ -8,7 +8,7 @@
     android:padding="@dimen/activity_margin"
     tools:context=".EditorActivity">
 
-    <!-- Overview category -->
+    <!-- Overview category Product Name-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,39 +16,72 @@
 
         <!-- Label -->
         <TextView
-            android:text="@string/product_detail"
+            android:text="@string/product_type"
             style="@style/CategoryStyle" />
-
-        <!-- Input fields -->
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/edit_item_name"
                 android:hint="@string/hint_item_name"
                 style="@style/EditorFieldStyle" />
-
-            <EditText
-                android:id="@+id/edit_price"
-                android:hint="@string/hint_price"
-                style="@style/EditorFieldStyle"
-                android:inputType="numberDecimal"/>
-            <EditText
-                android:id="@+id/edit_amount"
-                android:hint="@string/hint_amount"
-                style="@style/EditorFieldStyle"
-                android:inputType="numberDecimal"/>
         </LinearLayout>
+
+
+
+    <!-- Overview category product price -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label -->
+        <TextView
+            android:text="@string/product_price"
+            style="@style/CategoryStyle" />
+
+
+        <EditText
+            android:id="@+id/edit_price"
+            android:hint="@string/hint_price"
+            style="@style/EditorFieldStyle"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+    <!-- Overview category product amount of items -->
+
+    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+             <!-- Label -->
+            <TextView
+                 android:text="@string/product_amount"
+                 style="@style/CategoryStyle" />
+                <ImageButton
+                    android:id="@+id/decrease_quantity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".6"
+                    android:src="@drawable/ic_decrease_amount" />
+                <EditText
+                    android:id="@+id/edit_amount"
+                    android:hint="@string/hint_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    style="@style/EditorFieldStyle"
+                    android:inputType="numberDecimal"/>
+                <ImageButton
+                    android:id="@+id/increase_quantity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".6"
+                    android:src="@drawable/ic_increase_amount" />
     </LinearLayout>
 
-    <!-- Size category -->
+    <!-- Size of the product -->
     <LinearLayout
         android:id="@+id/container_size"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -57,24 +90,17 @@
             android:text="@string/category_size"
             style="@style/CategoryStyle" />
 
-        <!-- Input field -->
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
-
             <!-- Gender drop-down spinner -->
             <Spinner
                 android:id="@+id/spinner_size"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
                 android:layout_width="wrap_content"
-                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
                 android:spinnerMode="dropdown"/>
-        </LinearLayout>
+
     </LinearLayout>
 
-    <!-- Client Details -->
+    <!-- Client Name Details -->
     <LinearLayout
         android:id="@+id/container_measurement"
         android:layout_width="match_parent"
@@ -83,23 +109,33 @@
         <TextView
             android:text="@string/name_supplier"
             style="@style/CategoryStyle" />
-        <LinearLayout
-            android:id="@+id/container_measurement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
             <EditText
                 android:id="@+id/edit_supplier_name"
                 android:hint="@string/hint_name_supplier"
                 style="@style/EditorFieldStyle"
-                android:layout_marginLeft="20dp"/>
-            <EditText
-                android:id="@+id/edit_supplier_phone"
-                android:layout_below="@+id/edit_supplier_name"
-                android:hint="@string/hint_supplier_phone"
-                style="@style/EditorFieldStyle"
-                android:layout_marginLeft="20dp"
-                android:inputType="phone" />
-        </LinearLayout>
+               />
+
+
     </LinearLayout>
+    <!-- Supplier Phone Details -->
+    <LinearLayout
+        android:id="@+id/container_measurement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/phone_supplier"
+            style="@style/CategoryStyle" />
+
+        <EditText
+            android:id="@+id/edit_supplier_phone"
+            android:layout_below="@+id/edit_supplier_name"
+            android:hint="@string/hint_supplier_phone"
+            style="@style/EditorFieldStyle"
+            android:inputType="phone" />
+
+
+    </LinearLayout>
+
 </LinearLayout>

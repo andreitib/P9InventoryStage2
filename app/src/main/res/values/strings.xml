@@ -1,16 +1,30 @@
 <resources>
-    <string name="app_name">Clothes Inventory App</string>
+    <string name="app_name">Shop Clothes Inventory</string>
     <!-- Label for overflow menu option that inserts fake product data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_virtual_product">Insert Virtual Product</string>
-    <string name="product_detail"> Product Detail</string>
-    <string name="hint_price">Enter price</string>
+
+    <string name="product_type"> Product Type</string>
+
+    <string name="product_amount"> Product Amount</string>
+
+    <string name="product_price"> Product Price</string>
+
+    <string name="hint_price">Enter Price</string>
+
     <string name="hint_item_name">Write item name</string>
-    <string name="hint_amount">Write the amount</string>
+
+    <string name="hint_amount">Enter Amount</string>
+
     <string name="hint_size">What Size</string>
+
     <string name="hint_name_supplier">Write Supplier Name</string>
+
     <string name="hint_supplier_phone">Write Supplier Phone</string>
+
     <string name="action_save">Save</string>
+
     <string name="action_delete">Delete</string>
+
     <string name="action_delete_all_entries">Delete All Items</string>
 
     <!-- Label for size information in the editor [CHAR LIMIT=30] -->
@@ -29,6 +43,8 @@
     <string name="editor_activity_title_new_item">Add a new product</string>
 
     <string name="name_supplier">Supplier Name</string>
+
+    <string name="phone_supplier">Supplier Phone</string>
     <!-- Title text for the empty view, which describes the fashion image [CHAR LIMIT=50] -->
     <string name="empty_view_title_text">It is a bit lonely here</string>
 
@@ -79,4 +95,6 @@
 
     <!-- Label for the product's breed if the breed is unknown [CHAR LIMIT=20] -->
     <string name="unknown_supplier">Unknown supplier</string>
+
+    <string name="no_stock_supply">No stock supply</string>
 </resources>

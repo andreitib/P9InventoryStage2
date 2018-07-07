@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,8 +48,14 @@ public class EditorActivity extends AppCompatActivity implements
     @BindView(R.id.edit_price)
     EditText mItemprice;
 
+    @BindView(R.id.decrease_quantity)
+    ImageButton ButtonDecreaseQuantity;
+
     @BindView(R.id.edit_amount)
     EditText mAmount;
+
+    @BindView(R.id.increase_quantity)
+    ImageButton ButtonIncreasereaseQuantity;
 
     /**
      * EditText field to enter the product size
@@ -67,7 +74,7 @@ public class EditorActivity extends AppCompatActivity implements
     @BindView(R.id.edit_supplier_phone)
     EditText mSupplierphone;
     /**
-     * Boolean flag that keeps track of whether the pet has been edited (true) or not (false)
+     * Boolean flag that keeps track of whether the product has been edited (true) or not (false)
      */
     private boolean mItemHasChanged = false;
 
@@ -102,7 +109,7 @@ public class EditorActivity extends AppCompatActivity implements
             setTitle(getString(R.string.editor_activity_title_new_product));
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
-            // (It doesn't make sense to delete a pet that hasn't been created yet.)
+            // (It doesn't make sense to delete a product that hasn't been created yet.)
             invalidateOptionsMenu();
         } else {
             // Otherwise this is an existing product, so change app bar to say "Edit product"
@@ -120,11 +127,44 @@ public class EditorActivity extends AppCompatActivity implements
         // or not, if the user tries to leave the editor without saving.
         mItemname.setOnTouchListener(mTouchListener);
         mItemprice.setOnTouchListener(mTouchListener);
-        mAmount.setOnTouchListener(mTouchListener);
+        ButtonDecreaseQuantity.setOnTouchListener(mTouchListener);
+        ButtonIncreasereaseQuantity.setOnTouchListener(mTouchListener);
         mSizeSpinner.setOnTouchListener(mTouchListener);
         mSuppliername.setOnTouchListener(mTouchListener);
         mSupplierphone.setOnTouchListener(mTouchListener);
         setupSpinner();
+
+        ButtonIncreasereaseQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Amount = mAmount.getText().toString().trim();
+                if (TextUtils.isEmpty(Amount)) {
+                    mAmount.setText("1");
+                } else {
+                    int quantity_value = Integer.parseInt(Amount);
+                    quantity_value = quantity_value + 1;
+                    mAmount.setText(String.valueOf(quantity_value));
+                }
+            }
+        });
+
+        ButtonDecreaseQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Amount = mAmount.getText().toString().trim();
+                if (TextUtils.isEmpty(Amount)) {
+                    mAmount.setText("0");
+                } else if (Integer.parseInt(Amount) > 0) {
+                    int quantity_value = Integer.parseInt(Amount);
+                    quantity_value = quantity_value - 1;
+                    mAmount.setText(String.valueOf(quantity_value));
+                } else {
+                    Toast.makeText(EditorActivity.this, getResources().getText(R.string.no_stock_supply),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     /**
@@ -348,7 +388,7 @@ public class EditorActivity extends AppCompatActivity implements
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
         // Since the editor shows all product attributes, define a projection that contains
-        // all columns from the pet table
+        // all columns from the product table
         String[] projection = {
                 InventoryEntry._ID,
                 InventoryEntry.COLUMN_ITEM_NAME,
@@ -360,7 +400,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                mCurrentItemUri,               // Query the content URI for the current pet
+                mCurrentItemUri,               // Query the content URI for the current product
                 projection,                    // Columns to include in the resulting Cursor
                 null,                  // No selection clause
                 null,               // No selection arguments
@@ -377,7 +417,7 @@ public class EditorActivity extends AppCompatActivity implements
         // Proceed with moving to the first row of the cursor and reading data from it
         // (This should be the only row in the cursor)
         if (cursor.moveToFirst()) {
-            // Find the columns of pet attributes that we're interested in
+            // Find the columns of product attributes that we're interested in
             int ItemnameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
             int ItempriceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
             int AmountColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_AMOUNT);
@@ -397,8 +437,8 @@ public class EditorActivity extends AppCompatActivity implements
             mItemname.setText(Itemname);
             mItemprice.setText(Integer.toString(Itemprice));
             mAmount.setText(Integer.toString(Amount));
-            mItemname.setText(Suppliername);
-            mItemname.setText(Supplierphone);
+            mSuppliername.setText(Suppliername);
+            mSupplierphone.setText(Supplierphone);
 
 
             // Gender is a dropdown spinner, so map the constant value from the database
@@ -453,7 +493,7 @@ public class EditorActivity extends AppCompatActivity implements
         builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Keep editing" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the product.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -466,7 +506,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Prompt the user to confirm that they want to delete this pet.
+     * Prompt the user to confirm that they want to delete this product.
      */
     private void showDeleteConfirmationDialog() {
         // Create an AlertDialog.Builder and set the message, and click listeners
@@ -475,14 +515,14 @@ public class EditorActivity extends AppCompatActivity implements
         builder.setMessage(R.string.delete_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the pet.
+                // User clicked the "Delete" button, so delete the product.
                 deleteProduct();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the product.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -495,14 +535,14 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Perform the deletion of the pet in the database.
+     * Perform the deletion of the product in the database.
      */
     private void deleteProduct() {
-        // Only perform the delete if this is an existing pet.
+        // Only perform the delete if this is an existing product.
         if (mCurrentItemUri != null) {
-            // Call the ContentResolver to delete the pet at the given content URI.
-            // Pass in null for the selection and selection args because the mCurrentPetUri
-            // content URI already identifies the pet that we want.
+            // Call the ContentResolver to delete the product at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrentProductUri
+            // content URI already identifies the product that we want.
             int rowsDeleted = getContentResolver().delete(mCurrentItemUri, null, null);
 
             // Show a toast message depending on whether or not the delete was successful.

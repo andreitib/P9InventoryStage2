@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
-
 import com.example.android.p9inventorystage2.data.InventoryContract.InventoryEntry;
 
 /**
@@ -80,13 +79,13 @@ public class InventoryProvider extends ContentProvider {
             case INVENTORIES:
                 // For the INVENTORIES code, query the inventories table directly with the given
                 // projection, selection, selection arguments, and sort order. The cursor
-                // could contain multiple rows of the pets table.
+                // could contain multiple rows of the products table.
                 cursor = database.query(InventoryEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
             case INVENTORY_ID:
-                // For the PET_ID code, extract out the ID from the URI.
-                // For an example URI such as "content://com.example.android.pets/pets/3",
+                // For the INVENTORY_ID code, extract out the ID from the URI.
+                // For an example URI such as "content://com.example.android.inventories/inventories/3",
                 // the selection will be "_id=?" and the selection argument will be a
                 // String array containing the actual ID of 3 in this case.
                 //
@@ -169,7 +168,7 @@ public class InventoryProvider extends ContentProvider {
         // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
-        // Insert the new pet with the given values
+        // Insert the new product with the given values
         long id = database.insert(InventoryEntry.TABLE_NAME, null, values);
         // If the ID is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
@@ -251,8 +250,6 @@ public class InventoryProvider extends ContentProvider {
                 throw new IllegalArgumentException("Product requires a supplier phone number");
             }
         }
-
-
 
         // If there are no values to update, then don't try to update the database
         if (values.size() == 0) {
