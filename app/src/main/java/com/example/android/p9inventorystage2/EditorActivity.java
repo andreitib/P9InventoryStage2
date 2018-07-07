@@ -504,7 +504,6 @@ public class EditorActivity extends AppCompatActivity implements
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
     /**
      * Prompt the user to confirm that they want to delete this product.
      */
