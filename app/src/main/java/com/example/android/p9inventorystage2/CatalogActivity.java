@@ -27,7 +27,7 @@ public class CatalogActivity extends AppCompatActivity
     private static final int INVENTORY_LOADER = 0;
 
     /** Adapter for the ListView */
-    InventoryCursorAdapter mCursorAdapter;
+   private InventoryCursorAdapter mCursorAdapter;
 
 
     @Override
@@ -136,7 +136,8 @@ public class CatalogActivity extends AppCompatActivity
         String[] projection = {
                 InventoryEntry._ID,
                 InventoryEntry.COLUMN_ITEM_NAME,
-                InventoryEntry.COLUMN_SUPPLIER_NAME };
+                InventoryEntry.COLUMN_SUPPLIER_NAME,
+                InventoryEntry.COLUMN_AMOUNT};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context

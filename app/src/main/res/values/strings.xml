@@ -96,6 +96,12 @@
     <!-- Label for the product's breed if the breed is unknown [CHAR LIMIT=20] -->
     <string name="unknown_supplier">Unknown supplier</string>
 
-    <string name="no_stock_supply">No stock supply</string>
+    <string name="no_stock_supply">There is no product in stock</string>
+
     <string name="sell">Sell</string>
+    <string name="name_product">Name of the product</string>
+    <string name="supplier">Supplier:</string>
+    <string name="supplier_name">Supplier name</string>
+    <string name="amount">Amount:</string>
+    <string name="_23">23</string>
 </resources>

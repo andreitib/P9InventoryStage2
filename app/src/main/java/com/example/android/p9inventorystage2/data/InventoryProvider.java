@@ -146,7 +146,7 @@ public class InventoryProvider extends ContentProvider {
         }
 
         // Check that the size is valid
-        String size = values.getAsString(InventoryEntry.COLUMN_SIZE);
+        Integer size = values.getAsInteger(InventoryEntry.COLUMN_SIZE);
         if (size == null || !InventoryEntry.isValidSize(size)) {
             throw new IllegalArgumentException("Product requires a valid size");
         }
@@ -230,7 +230,7 @@ public class InventoryProvider extends ContentProvider {
             }
         }
         if (values.containsKey(InventoryEntry.COLUMN_SIZE)) {
-            String size = values.getAsString(InventoryEntry.COLUMN_SIZE);
+            Integer size = values.getAsInteger(InventoryEntry.COLUMN_SIZE);
             if (size == null || !InventoryEntry.isValidSize(size)) {
                 throw new IllegalArgumentException("Product requires a valid size");
             }

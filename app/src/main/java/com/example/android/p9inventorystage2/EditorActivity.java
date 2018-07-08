@@ -66,13 +66,16 @@ public class EditorActivity extends AppCompatActivity implements
      * {@link InventoryEntry#SIZE_SMALL}, {@link InventoryEntry#SIZE_MEDIUM}, or
      * {@link InventoryEntry#SIZE_LARGE},{@link InventoryEntry#SIZE_XLARGE}.
      */
-    private String mSize = InventoryEntry.SIZE_SMALL;
+    private int mSize = InventoryEntry.SIZE_SMALL;
 
     @BindView(R.id.edit_supplier_name)
     EditText mSuppliername;
 
     @BindView(R.id.edit_supplier_phone)
     EditText mSupplierphone;
+
+    @BindView(R.id.button_call_supplier)
+    ImageButton buttonCallSupplier;
     /**
      * Boolean flag that keeps track of whether the product has been edited (true) or not (false)
      */
@@ -164,6 +167,18 @@ public class EditorActivity extends AppCompatActivity implements
                 }
             }
         });
+        // Setup onClickListeners on the buttons
+        buttonCallSupplier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = mSupplierphone.getText().toString().trim();
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + phoneNumber));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
 
     }
 
@@ -227,7 +242,7 @@ public class EditorActivity extends AppCompatActivity implements
                 || TextUtils.isEmpty(amountString)
                 || TextUtils.isEmpty(suppliernameString)
                 || TextUtils.isEmpty(supplierphoneString)
-                || mSize == InventoryEntry.SIZE_SMALL) {
+                && mSize == InventoryEntry.SIZE_SMALL) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
@@ -427,7 +442,7 @@ public class EditorActivity extends AppCompatActivity implements
             String Itemname = cursor.getString(ItemnameColumnIndex);
             int Itemprice = cursor.getInt(ItempriceColumnIndex);
             int Amount = cursor.getInt(AmountColumnIndex);
-            String Size = cursor.getString(SizeColumnIndex);
+            int Size = cursor.getInt(SizeColumnIndex);
             String Suppliername = cursor.getString(SuppliernameColumnIndex);
             String Supplierphone = cursor.getString(SupplierphoneColumnIndex);
 
@@ -439,16 +454,14 @@ public class EditorActivity extends AppCompatActivity implements
             mSupplierphone.setText(Supplierphone);
 
 
-            // Gender is a dropdown spinner, so map the constant value from the database
+            // Size is a dropdown spinner, so map the constant value from the database
             // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
             // Then call setSelection() so that option is displayed on screen as the current selection.
             switch (Size) {
 
                 case InventoryEntry.SIZE_MEDIUM:
                     mSizeSpinner.setSelection(1);
-                    //mSizeSpinner.setSelection(R.string.size_medium);
                     break;
-
                 case InventoryEntry.SIZE_LARGE:
                     mSizeSpinner.setSelection(2);
                     break;

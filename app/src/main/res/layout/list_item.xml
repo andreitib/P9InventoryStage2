@@ -10,26 +10,55 @@
 
     <TextView
         android:id="@+id/name"
+        android:text="@string/name_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
+        android:textSize="@dimen/item_name"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="#2B3D4D" />
-
+        android:textColor="#455A64" />
     <TextView
-        android:id="@+id/summary"
-        android:layout_below="@+id/name"
+        android:id="@+id/supplier"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/supplier"
+        android:textSize="@dimen/supplier_name"
+        android:layout_below="@id/name"
+        android:fontFamily="sans-serif"
+        android:textAppearance="?android:textAppearanceSmall"
+        />
+    <TextView
+        android:id="@+id/supplier_name"
+        android:layout_width="wrap_content"
+        android:text="@string/supplier_name"
+        android:layout_toRightOf="@+id/supplier"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/name"
+        android:textSize="@dimen/supplier_name"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="#AEB6BD" />
-
+        android:textColor="@color/color_text" />
     <TextView
-        android:id="@+id/quantity_value"
+        android:id="@+id/amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/summary"
+        android:text="@string/amount"
+        android:textSize="@dimen/amount_text"
+        android:layout_below="@id/supplier"
+        android:fontFamily="sans-serif"
+        android:textAppearance="?android:textAppearanceMedium"/>
+    <TextView
+        android:id="@+id/amount_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_23"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/amount_text"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/amount"
+        android:layout_below="@+id/supplier"
+        android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceMedium"
      />
     <Button
@@ -40,5 +69,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:focusable="false"
+        android:background="@color/sellcolorbutton"
+        android:textColor="@color/sellcolorbuttontext"
         android:text="@string/sell" />
 </RelativeLayout>

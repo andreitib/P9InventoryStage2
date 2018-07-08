@@ -39,7 +39,7 @@ public final class InventoryContract {
         public final static String _ID = BaseColumns._ID;
         public final static String COLUMN_ITEM_NAME = "name";
         public final static String COLUMN_ITEM_PRICE = "price";
-        public final static String COLUMN_AMOUNT = "items";
+        public final static String COLUMN_AMOUNT = "amount";
         public final static String COLUMN_SIZE = "size";
         public final static String COLUMN_SUPPLIER_NAME = "supplier";
         public final static String COLUMN_SUPPLIER_PHONE = "phonesupplier";
@@ -47,10 +47,10 @@ public final class InventoryContract {
         /**
          * Possible values for the size of the clothes.
          */
-        public static final String SIZE_SMALL = "S";
-        public static final String SIZE_MEDIUM = "M";
-        public static final String SIZE_LARGE = "L";
-        public static final String SIZE_XLARGE = "XL";
+        public static final int SIZE_SMALL = 0;
+        public static final int SIZE_MEDIUM = 1;
+        public static final int SIZE_LARGE = 2;
+        public static final int SIZE_XLARGE = 3;
 
 
 
@@ -58,7 +58,7 @@ public final class InventoryContract {
              * Returns whether or not the given gender is {@link #SIZE_SMALL}, {@link #SIZE_MEDIUM},
              * {@link #SIZE_LARGE} or {@link #SIZE_XLARGE}.
              */
-            public static boolean isValidSize(String size) {
+            public static boolean isValidSize(int size) {
                 if (size == SIZE_SMALL || size == SIZE_MEDIUM || size == SIZE_LARGE || size == SIZE_XLARGE) {
                     return true;
                 }

@@ -5,13 +5,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.p9inventorystage2.data.InventoryContract.InventoryEntry;
 
@@ -46,7 +46,23 @@ public class InventoryCursorAdapter extends CursorAdapter {
         // Inflate a list item view using the layout specified in list_item.xml
         return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
     }
-
+    /**
+     * This method reduced product stock by 1
+     * @param context - Activity context
+     * @param mUri - Uri used to update the stock of a specific product in the ListView
+     * @param amountValue - current stock of that specific product
+     */
+    private void updateAmount(Context context, Uri mUri, int amountValue) {
+        if (amountValue >= 1) {
+            amountValue = amountValue - 1;
+        } else if (amountValue == 0) {
+            Toast.makeText(context.getApplicationContext(),
+                    R.string.no_stock_supply, Toast.LENGTH_SHORT).show();
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(InventoryEntry.COLUMN_AMOUNT, amountValue);
+        context.getContentResolver().update(mUri,contentValues, null, null);
+    }
     /**
      * This method binds the Inventory data (in the current row pointed to by cursor) to the given
      * list item layout. For example, the name for the current Inventory can be set on the name TextView
@@ -61,8 +77,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
-        TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
-        TextView amountTextView = (TextView) view.findViewById(R.id.quantity_value);
+        TextView suppliernameTextView = (TextView) view.findViewById(R.id.supplier_name);
+        TextView amountTextView = (TextView) view.findViewById(R.id.amount_value);
         Button sellButton = view.findViewById(R.id.sell_button);
 
         // Find the columns of Inventory attributes that we're interested in
@@ -76,29 +92,18 @@ public class InventoryCursorAdapter extends CursorAdapter {
         String inventorySupplierName = cursor.getString(suppliernameColumnIndex);
         final int amountValue = cursor.getInt(amountColumnIndex);
 
-        // If the inventory breed is empty string or null, then use some default text
-        // that says "Unknown supplier", so the TextView isn't blank.
-        if (TextUtils.isEmpty(inventorySupplierName)) {
-            inventorySupplierName = context.getString(R.string.unknown_supplier);
-        }
 
         // Update the TextViews with the attributes for the current inventory
         nameTextView.setText(inventoryName);
-        summaryTextView.setText(inventorySupplierName);
+        suppliernameTextView.setText(inventorySupplierName);
         amountTextView.setText(String.valueOf(amountValue));
 
-        //Decrease the quantity by   1 on each click
         sellButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri amountUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, idColumnIndex);
-                ContentValues values = new ContentValues();
-                values.put(InventoryEntry.COLUMN_AMOUNT, amountValue - 1);
-                context.getContentResolver().update(amountUri, values, null, null);
+                Uri mUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, idColumnIndex);
+                updateAmount(context, mUri, amountValue);
             }
         });
-
-
-
     }
 }
