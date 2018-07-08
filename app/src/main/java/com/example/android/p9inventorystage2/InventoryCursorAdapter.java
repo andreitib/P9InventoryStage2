@@ -77,25 +77,25 @@ public class InventoryCursorAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
-        TextView suppliernameTextView = (TextView) view.findViewById(R.id.supplier_name);
+        TextView priceTextView = (TextView) view.findViewById(R.id.item_priceme);
         TextView amountTextView = (TextView) view.findViewById(R.id.amount_value);
         Button sellButton = view.findViewById(R.id.sell_button);
 
         // Find the columns of Inventory attributes that we're interested in
         final int idColumnIndex = cursor.getInt(cursor.getColumnIndex(InventoryEntry._ID));
         int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
-        int suppliernameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_SUPPLIER_NAME);
+        int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
         int amountColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_AMOUNT);
 
         // Read the inventory attributes from the Cursor for the current inventory
         String inventoryName = cursor.getString(nameColumnIndex);
-        String inventorySupplierName = cursor.getString(suppliernameColumnIndex);
+        String inventoryPrice = cursor.getString(priceColumnIndex);
         final int amountValue = cursor.getInt(amountColumnIndex);
 
 
         // Update the TextViews with the attributes for the current inventory
         nameTextView.setText(inventoryName);
-        suppliernameTextView.setText(inventorySupplierName);
+        priceTextView.setText(inventoryPrice);
         amountTextView.setText(String.valueOf(amountValue));
 
         sellButton.setOnClickListener(new View.OnClickListener() {

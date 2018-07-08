@@ -100,8 +100,8 @@
 
     <string name="sell">Sell</string>
     <string name="name_product">Name of the product</string>
-    <string name="supplier">Supplier:</string>
-    <string name="supplier_name">Supplier name</string>
+    <string name="price">Price:</string>
+    <string name="item_price">50</string>
     <string name="amount">Amount:</string>
     <string name="_23">23</string>
 </resources>

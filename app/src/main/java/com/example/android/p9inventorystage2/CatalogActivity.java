@@ -136,7 +136,7 @@ public class CatalogActivity extends AppCompatActivity
         String[] projection = {
                 InventoryEntry._ID,
                 InventoryEntry.COLUMN_ITEM_NAME,
-                InventoryEntry.COLUMN_SUPPLIER_NAME,
+                InventoryEntry.COLUMN_ITEM_PRICE,
                 InventoryEntry.COLUMN_AMOUNT};
 
         // This loader will execute the ContentProvider's query method on a background thread

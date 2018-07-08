@@ -108,7 +108,7 @@
 
     <!-- Client Name Details -->
     <LinearLayout
-        android:id="@+id/container_measurement"
+        android:id="@+id/container_supplier_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/row_distance"
@@ -128,7 +128,7 @@
     </LinearLayout>
     <!-- Supplier Phone Details -->
     <LinearLayout
-        android:id="@+id/container_measurement"
+        android:id="@+id/container_suplier_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="4dp">

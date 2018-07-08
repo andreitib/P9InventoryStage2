@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Layout for a single list item in the list of pets -->
+<!-- Layout for a single list item in the list of clothing products -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -18,23 +18,23 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="#455A64" />
     <TextView
-        android:id="@+id/supplier"
+        android:id="@+id/priceme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/supplier"
-        android:textSize="@dimen/supplier_name"
+        android:text="@string/price"
+        android:textSize="@dimen/price"
         android:layout_below="@id/name"
         android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceSmall"
         />
     <TextView
-        android:id="@+id/supplier_name"
+        android:id="@+id/item_priceme"
         android:layout_width="wrap_content"
-        android:text="@string/supplier_name"
-        android:layout_toRightOf="@+id/supplier"
+        android:text="@string/price"
+        android:layout_toRightOf="@+id/priceme"
         android:layout_marginLeft="10dp"
         android:layout_below="@+id/name"
-        android:textSize="@dimen/supplier_name"
+        android:textSize="@dimen/price"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceSmall"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:text="@string/amount"
         android:textSize="@dimen/amount_text"
-        android:layout_below="@id/supplier"
+        android:layout_below="@id/priceme"
         android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceMedium"/>
     <TextView
@@ -57,7 +57,7 @@
         android:textSize="@dimen/amount_text"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/amount"
-        android:layout_below="@+id/supplier"
+        android:layout_below="@+id/item_priceme"
         android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceMedium"
      />

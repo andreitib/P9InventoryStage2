@@ -8,7 +8,7 @@
     
     <dimen name="row_distance">14dp</dimen>
 
-    <dimen name="supplier_name">17dp</dimen>
+    <dimen name="price">17dp</dimen>
     <dimen name="amount_text">15dp</dimen>
     <dimen name="item_name">24dp</dimen>
 </resources>
