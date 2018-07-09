@@ -223,6 +223,28 @@ public class EditorActivity extends AppCompatActivity implements
         });
     }
 
+    private boolean verifyInputFields() {
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        String itemnameString = mItemname.getText().toString().trim();
+        String priceString = mItemprice.getText().toString().trim();
+        String amountString = mAmount.getText().toString().trim();
+        String suppliernameString = mSuppliername.getText().toString().trim();
+        String supplierphoneString = mSupplierphone.getText().toString().trim();
+
+        if (TextUtils.isEmpty(itemnameString) ||
+                TextUtils.isEmpty(priceString) ||
+                TextUtils.isEmpty(amountString) ||
+                TextUtils.isEmpty(suppliernameString) ||
+                TextUtils.isEmpty(supplierphoneString)) {
+            Toast.makeText(this, getString(R.string.all_field_required), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (Integer.parseInt(priceString) == 0) {
+            Toast.makeText(this, getString(R.string.price_greater_then_zero), Toast.LENGTH_SHORT).show();
+            return false;
+        } else {return true;}
+    }
+
 
     // Gets user input from editor and saves item info into database
     private void saveItem() {
@@ -236,15 +258,13 @@ public class EditorActivity extends AppCompatActivity implements
 
         // Check if this is supposed to be a new item
         // and check if all the fields in the editor are blank
-        if (mCurrentItemUri == null &&
-                TextUtils.isEmpty(itemnameString)
-                || TextUtils.isEmpty(priceString)
-                || TextUtils.isEmpty(amountString)
-                || TextUtils.isEmpty(suppliernameString)
-                || TextUtils.isEmpty(supplierphoneString)
+        if (mCurrentItemUri == null
+                && TextUtils.isEmpty(itemnameString)
+                && TextUtils.isEmpty(priceString)
+                && TextUtils.isEmpty(amountString)
+                && TextUtils.isEmpty(suppliernameString)
+                && TextUtils.isEmpty(supplierphoneString)
                 && mSize == InventoryEntry.SIZE_SMALL) {
-            // Since no fields were modified, we can return early without creating a new product.
-            // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
         }
 
@@ -253,20 +273,10 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(InventoryEntry.COLUMN_SIZE, mSize);
         values.put(InventoryEntry.COLUMN_SUPPLIER_NAME, suppliernameString);
         values.put(InventoryEntry.COLUMN_SUPPLIER_PHONE, supplierphoneString);
-        // If the price is not provided by the user, don't try to parse the string into an
-        // integer value. Use 0 by default.
-        int price = 0;
-        if (!TextUtils.isEmpty(priceString)) {
-            price = Integer.parseInt(priceString);
-        }
-        values.put(InventoryEntry.COLUMN_ITEM_PRICE, price);
-        // If the amount is not provided by the user, don't try to parse the string into an
-        // integer value. Use 0 by default.
-        int amount = 0;
-        if (!TextUtils.isEmpty(amountString)) {
-            amount = Integer.parseInt(amountString);
-        }
-        values.put(InventoryEntry.COLUMN_AMOUNT, amount);
+
+        values.put(InventoryEntry.COLUMN_ITEM_PRICE, Integer.parseInt(priceString));
+
+        values.put(InventoryEntry.COLUMN_AMOUNT,Integer.parseInt(amountString));
 
         // Determine if this is a new or existing item by checking if mCurrentItemUri is null or not
         if (mCurrentItemUri == null) {
@@ -333,10 +343,11 @@ public class EditorActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save item to database
-                saveItem();
-                //Exit activity
-                finish();
+                if (verifyInputFields()) {
+                    saveItem();
+                    //Exit activity
+                    finish();
+                }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -550,9 +561,6 @@ public class EditorActivity extends AppCompatActivity implements
     private void deleteProduct() {
         // Only perform the delete if this is an existing product.
         if (mCurrentItemUri != null) {
-            // Call the ContentResolver to delete the product at the given content URI.
-            // Pass in null for the selection and selection args because the mCurrentProductUri
-            // content URI already identifies the product that we want.
             int rowsDeleted = getContentResolver().delete(mCurrentItemUri, null, null);
 
             // Show a toast message depending on whether or not the delete was successful.

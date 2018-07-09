@@ -104,4 +104,7 @@
     <string name="item_price">50</string>
     <string name="amount">Amount:</string>
     <string name="_23">23</string>
+    <string name="all_field_required">No null values are accepted</string>
+    <string name="price_greater_then_zero">Price must have positive values</string>
+
 </resources>
