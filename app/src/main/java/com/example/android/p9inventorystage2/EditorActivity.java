@@ -466,7 +466,7 @@ public class EditorActivity extends AppCompatActivity implements
 
 
             // Size is a dropdown spinner, so map the constant value from the database
-            // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
+            // into one of the dropdown options (1 is SizeMedium, 2 is SizeLarge, 2 is SizeXlarge).
             // Then call setSelection() so that option is displayed on screen as the current selection.
             switch (Size) {
 
